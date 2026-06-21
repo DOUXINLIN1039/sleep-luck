@@ -68,7 +68,7 @@
                 <div class="space-y-3 mb-6">
                     <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">当前策略底层单发率</h3>
                     
-                    <button onclick="applyOptimal()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-extrabold text-xs transition duration-200 hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg mb-2">
+                    <button onclick="applyOptimal()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 font-black text-xs transition duration-200 hover:opacity-95 active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg mb-2">
                         <i class="fa-solid fa-wand-magic-sparkles"></i> 一键套用标准毕业线
                     </button>
                     
@@ -178,7 +178,7 @@
                     <div class="bg-slate-50 border border-slate-100 rounded-xl px-3 py-2 flex items-center gap-2.5 mb-3 text-[11px] text-slate-600">
                         <i class="fa-solid fa-heart text-red-500 animate-pulse"></i>
                         <span>
-                            特别鸣谢：<strong>谜之玩家 Leo</strong> & Pokémon Sleep 睡眠学博士 <strong>Kolin</strong> 提供的百万级大数据模拟和数学模型支持！
+                            特别鸣谢：<strong>谜之玩家 Leo</strong> & Pokémon Sleep 睡眠学博士 <strong>Kolin</strong> 提供的百万级大数据模拟和数学模型 support！
                         </span>
                     </div>
 
@@ -224,7 +224,7 @@
         let activeP2 = 2.28;
         let activeP3 = 5.98;
 
-        // 权威数据库（完全同步 Leo & Kolin 最新官方数据，补全面板与效率数字）
+        // 权威数据库（完全同步 Leo & Kolin 最新官方图数据：面板词条、效率数字、概率独立不准篡改）
         const typeDatabase = {
             berry: {
                 label: '树果型模板',
@@ -346,7 +346,7 @@
             }
         }
 
-        // 动态渲染官方毕业参考表（完美回归三列平等固定色彩体系）
+        // 动态渲染官方毕业参考表（横向大归一，三列权威对照数据不再篡改错位）
         function renderReferenceTable() {
             const tbody = document.getElementById('ref-table-body');
             const titleEl = document.getElementById('ref-table-title');
