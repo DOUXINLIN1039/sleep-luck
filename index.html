@@ -64,16 +64,18 @@
 
                 <!-- 核心机制：开关锁金设置 -->
                 <div class="bg-slate-800/80 p-4 rounded-2xl mb-6 border border-slate-700/50">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <span class="block text-sm font-bold text-amber-400">40级后保底锁金配置</span>
-                            <span class="text-[10px] text-slate-300 block mt-1 leading-relaxed" id="lock-switch-desc">配置40只及以后的锁定行为。</span>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="disableLockAt40" onchange="updateChart()" class="sr-only peer">
-                            <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
-                        </label>
+                    <div class="mb-3">
+                        <span class="block text-sm font-bold text-amber-400">40级后保底锁金配置</span>
+                        <span class="text-[10px] text-slate-300 block mt-1 leading-relaxed" id="lock-switch-desc">配置40只及以后的锁定行为。</span>
                     </div>
+                    
+                    <!-- 三段式控制开关 Segmented Control -->
+                    <div class="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 mb-2">
+                        <button onclick="setLockMode('none')" id="opt-lock-none" class="py-2 px-1 rounded-lg font-bold text-[11px] text-center transition">不锁金</button>
+                        <button onclick="setLockMode('one')" id="opt-lock-one" class="py-2 px-1 rounded-lg font-bold text-[11px] text-center transition">锁 1 金</button>
+                        <button onclick="setLockMode('two')" id="opt-lock-two" class="py-2 px-1 rounded-lg font-bold text-[11px] text-center transition">锁 2 金</button>
+                    </div>
+
                     <p class="text-[10px] text-slate-400 mt-2.5 leading-relaxed border-t border-slate-700/60 pt-2" id="lock-switch-long-desc">
                         配置40只及以后的锁定行为。
                     </p>
@@ -391,7 +393,7 @@
             });
         }
 
-        // 同步滑动条和输入框的值
+        // 同步滑动条 and 输入框的值
         function syncInputs(id, source) {
             const rangeInput = document.getElementById(id);
             const numInput = document.getElementById(`num-${id}`);
