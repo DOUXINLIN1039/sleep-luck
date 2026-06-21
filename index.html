@@ -66,12 +66,11 @@
                 </div>
 
                 <div class="space-y-3 mb-6">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400">当前策略底层单发率</h3>
-                        <button onclick="applyOptimal()" class="text-[10px] bg-amber-500 hover:bg-amber-400 text-slate-950 px-2.5 py-1.5 rounded-lg font-bold transition flex items-center gap-1">
-                            <i class="fa-solid fa-wand-magic-sparkles text-[9px]"></i>一键标准毕业
-                        </button>
-                    </div>
+                    <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">当前策略底层单发率</h3>
+                    
+                    <button onclick="applyOptimal()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-extrabold text-xs transition duration-200 hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg mb-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 一键套用标准毕业线
+                    </button>
                     
                     <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/50 flex justify-between items-center text-xs">
                         <span class="text-slate-300 font-medium">第 1 - 8 只 (无保底)</span>
@@ -191,7 +190,7 @@
                                     <th class="pb-2 font-semibold min-w-[120px]">毕业面板</th>
                                     <th class="pb-2 font-semibold">不锁金 (&lt;10)</th>
                                     <th class="pb-2 font-semibold">锁一金 (&lt;40)</th>
-                                    <th class="pb-2 font-semibold bg-amber-50 text-amber-900 rounded-t-lg font-mono" id="col-dynamic-title">持续锁两金 (&ge;40)</th>
+                                    <th class="pb-2 font-semibold text-slate-400" id="col-dynamic-title">持续锁两金 (&ge;40)</th>
                                     <th class="pb-2 font-semibold text-right hidden md:table-cell">快速操作</th>
                                 </tr>
                             </thead>
@@ -244,9 +243,9 @@
                 switchDesc: '食材型对金帮要求不大，且本身毕业难度较高，如果追求金帮毕业难度非常高，因此建议40级后关闭锁金。',
                 records: [
                     { name: '和解 (最易毕业)', board: '概M帮M(一概一帮)', eff: '1.581', p1: 2.14, p2: 1.13, p3: 0.39, color: 'text-amber-600', btnClass: 'bg-amber-100 hover:bg-amber-200 text-amber-800' },
-                    { name: '毕业 (标准线)', board: '概M性格概(两概)', eff: '1.632', p1: 1.27, p2: 0.83, p3: 0.39, color: 'text-slate-800', btnClass: 'bg-slate-100 hover:bg-slate-200 text-slate-800' },
-                    { name: '大毕业 (高要求)', board: '概M性格概帮S(两概帮S)', eff: '1.755', p1: 0.82, p2: 0.53, p3: 0.23, color: 'text-purple-600', btnClass: 'bg-purple-100 hover:bg-purple-200 text-purple-800' },
-                    { name: '金帮毕业 (极高门槛)', board: '金帮性格概帮M', eff: '1.481', p1: 0.12, p2: 0.32, p3: 0.23, color: 'text-red-600', btnClass: 'bg-red-100 hover:bg-red-200 text-red-800' }
+                    { name: '毕业 (标准线)', board: '帮M性格帮(两帮)', eff: '1.632', p1: 1.27, p2: 0.83, p3: 0.39, color: 'text-slate-800', btnClass: 'bg-slate-100 hover:bg-slate-200 text-slate-800' },
+                    { name: '大毕业 (高要求)', board: '帮M性格帮S(两帮S)', eff: '1.755', p1: 0.82, p2: 0.53, p3: 0.23, color: 'text-purple-600', btnClass: 'bg-purple-100 hover:bg-purple-200 text-purple-800' },
+                    { name: '金帮毕业 (极高门槛)', board: '金帮型性格帮型帮M', eff: '1.481', p1: 0.12, p2: 0.32, p3: 0.23, color: 'text-red-600', btnClass: 'bg-red-100 hover:bg-red-200 text-red-800' }
                 ]
             },
             skill: {
@@ -254,10 +253,10 @@
                 defaultLockMode: 'none',
                 switchDesc: '技能型金帮增益往往比较大，但同样的金帮毕业难度较正常毕业偏高一些，关于锁不锁金请自行取舍。',
                 records: [
-                    { name: '和解 (最易毕业)', board: '概M性格概(两概)', eff: '1.632', p1: 11.23, p2: 6.79, p3: 2.85, color: 'text-amber-600', btnClass: 'bg-amber-100 hover:bg-amber-200 text-amber-800' },
-                    { name: '毕业 (标准线)', board: '概M性格概帮S(两概帮S)', eff: '1.755', p1: 7.23, p2: 4.12, p3: 1.40, color: 'text-slate-800', btnClass: 'bg-slate-100 hover:bg-slate-200 text-slate-800' },
-                    { name: '大毕业 (高要求)', board: '概M概S性格概(三概)', eff: '1.848', p1: 3.85, p2: 3.11, p3: 1.40, color: 'text-purple-600', btnClass: 'bg-purple-100 hover:bg-purple-200 text-purple-800' },
-                    { name: '金帮毕业 (极高门槛)', board: '金帮概M帮S', eff: '1.545', p1: 0.85, p2: 2.25, p3: 1.40, color: 'text-red-600', btnClass: 'bg-red-100 hover:bg-red-200 text-red-800' }
+                    { name: '和解 (最易毕业)', board: '概M线性概(两概)', eff: '1.632', p1: 11.23, p2: 6.79, p3: 2.85, color: 'text-amber-600', btnClass: 'bg-amber-100 hover:bg-amber-200 text-amber-800' },
+                    { name: '毕业 (标准线)', board: '概M性格帮帮S(两帮两S)', eff: '1.755', p1: 7.23, p2: 4.12, p3: 1.40, color: 'text-slate-800', btnClass: 'bg-slate-100 hover:bg-slate-200 text-slate-800' },
+                    { name: '大毕业 (高要求)', board: '概M机S性格帮(三低)', eff: '1.848', p1: 3.85, p2: 3.11, p3: 1.40, color: 'text-purple-600', btnClass: 'bg-purple-100 hover:bg-purple-200 text-purple-800' },
+                    { name: '金帮毕业 (极高门槛)', board: '金帮几M观S', eff: '1.545', p1: 0.85, p2: 2.25, p3: 1.40, color: 'text-red-600', btnClass: 'bg-red-100 hover:bg-red-200 text-red-800' }
                 ]
             }
         };
@@ -347,7 +346,7 @@
             }
         }
 
-        // 动态渲染官方毕业参考表（完美修正：独立固定三组权威策略数据，不随自选改变）
+        // 动态渲染官方毕业参考表（完美回归三列平等固定色彩体系）
         function renderReferenceTable() {
             const tbody = document.getElementById('ref-table-body');
             const titleEl = document.getElementById('ref-table-title');
@@ -369,7 +368,7 @@
                     </td>
                     <td class="py-3 font-mono">${r.p1.toFixed(2)}%</td>
                     <td class="py-3 font-mono">${r.p2.toFixed(2)}%</td>
-                    <td class="py-3 font-mono font-bold bg-amber-50/40 text-amber-600">${r.p3.toFixed(2)}%</td>
+                    <td class="py-3 font-mono font-medium">${r.p3.toFixed(2)}%</td>
                     <td class="py-3 text-right hidden md:table-cell">
                         <button onclick="loadReference(${r.p1}, ${r.p2}, ${r.p3}, '${r.name}')" class="${r.btnClass} font-bold px-2 py-1 rounded text-[10px] transition duration-150 active:scale-95">一键套用</button>
                     </td>
