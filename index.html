@@ -48,6 +48,23 @@
                     </div>
                 </div>
 
+                <div class="mb-6">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center justify-between">
+                        <span>选择官方标准毕业线切档</span>
+                    </label>
+                    <div class="flex items-center gap-2 mt-2">
+                        <select id="select-rating-line" onchange="handleSelectLineChange()" class="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-3 py-3 text-xs font-bold text-amber-400 focus:outline-none focus:border-amber-500 accent-slate-800">
+                            <option value="0">和解 (最易毕业)</option>
+                            <option value="1" selected>毕业 (标准线)</option>
+                            <option value="2">大毕业 (高要求)</option>
+                            <option value="3">金帮毕业 (极高门槛)</option>
+                        </select>
+                        <button onclick="openModal()" class="bg-slate-800 border border-slate-700 hover:bg-slate-700 hover:border-slate-500 p-3 rounded-xl text-amber-400 transition" title="查看当前档位面板词条详情">
+                            <i class="fa-solid fa-circle-question text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <div class="bg-slate-800/80 p-4 rounded-2xl mb-6 border border-slate-700/50">
                     <div class="mb-3">
                         <span class="block text-sm font-bold text-amber-400">40级后保底锁金配置</span>
@@ -66,11 +83,7 @@
                 </div>
 
                 <div class="space-y-3 mb-6">
-                    <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">当前策略底层单发率</h3>
-                    
-                    <button onclick="applyOptimal()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 font-black text-xs transition duration-200 hover:opacity-95 active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg mb-2">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> 一键套用标准毕业线
-                    </button>
+                    <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400">当前策略底层单发率</h3>
                     
                     <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/50 flex justify-between items-center text-xs">
                         <span class="text-slate-300 font-medium">第 1 - 8 只 (无保底)</span>
@@ -178,7 +191,7 @@
                     <div class="bg-slate-50 border border-slate-100 rounded-xl px-3 py-2 flex items-center gap-2.5 mb-3 text-[11px] text-slate-600">
                         <i class="fa-solid fa-heart text-red-500 animate-pulse"></i>
                         <span>
-                            特别鸣谢：<strong>谜之玩家 Leo</strong> & Pokémon Sleep 睡眠学博士 <strong>Kolin</strong> 提供的百万级大数据模拟和数学模型 support！
+                            特别鸣谢：<strong>谜之玩家 Leo</strong> & Pokémon Sleep 睡眠学博士 <strong>Kolin</strong> 提供的百万级大数据模拟和数学模型支持！
                         </span>
                     </div>
 
@@ -208,6 +221,34 @@
         </div>
     </div>
 
+    <div id="infoModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition duration-300">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 transform scale-95 transition duration-300 flex flex-col gap-4 border border-slate-100">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-file-medical text-amber-500"></i> <span id="modal-rating-title">标准毕业线</span> 详情
+                </h4>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="space-y-3 py-1">
+                <div>
+                    <span class="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">当前筛选类型</span>
+                    <span id="modal-pokemon-type" class="text-xs font-extrabold text-slate-800">树果怪</span>
+                </div>
+                <div>
+                    <span class="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">毕业个体期望面板</span>
+                    <div id="modal-board-text" class="text-xs font-semibold text-slate-900 bg-slate-50 px-3 py-2 rounded-xl mt-1 border border-slate-100 leading-relaxed">果S性格帮帮S</div>
+                </div>
+                <div>
+                    <span class="block text-[10px] uppercase font-bold text-slate-400 tracking-wider">等效产量/触发效率数字</span>
+                    <div class="text-base font-black text-amber-500 font-mono mt-0.5" id="modal-eff-value">1.792</div>
+                </div>
+            </div>
+            <button onclick="closeModal()" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition duration-150">
+                我了解了
+            </button>
+        </div>
+    </div>
+
     <div id="toast" class="fixed bottom-5 bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-xl flex items-center gap-2 transform translate-y-24 opacity-0 transition duration-300 pointer-events-none z-50">
         <i class="fa-solid fa-circle-check text-emerald-400"></i>
         <span id="toast-msg">已成功应用!</span>
@@ -224,7 +265,7 @@
         let activeP2 = 2.28;
         let activeP3 = 5.98;
 
-        // 权威数据库（完全同步 Leo & Kolin 最新官方图数据：面板词条、效率数字、概率独立不准篡改）
+        // 权威数据库（固定不动的对照组数据字典）
         const typeDatabase = {
             berry: {
                 label: '树果型模板',
@@ -255,21 +296,28 @@
                 records: [
                     { name: '和解 (最易毕业)', board: '概M线性概(两概)', eff: '1.632', p1: 11.23, p2: 6.79, p3: 2.85, color: 'text-amber-600', btnClass: 'bg-amber-100 hover:bg-amber-200 text-amber-800' },
                     { name: '毕业 (标准线)', board: '概M性格帮帮S(两帮两S)', eff: '1.755', p1: 7.23, p2: 4.12, p3: 1.40, color: 'text-slate-800', btnClass: 'bg-slate-100 hover:bg-slate-200 text-slate-800' },
-                    { name: '大毕业 (高要求)', board: '概M机S性格帮(三低)', eff: '1.848', p1: 3.85, p2: 3.11, p3: 1.40, color: 'text-purple-600', btnClass: 'bg-purple-100 hover:bg-purple-200 text-purple-800' },
+                    { name: '大毕业 (高要求)', board: '概M概S性格概(三概)', eff: '1.848', p1: 3.85, p2: 3.11, p3: 1.40, color: 'text-purple-600', btnClass: 'bg-purple-100 hover:bg-purple-200 text-purple-800' },
                     { name: '金帮毕业 (极高门槛)', board: '金帮几M观S', eff: '1.545', p1: 0.85, p2: 2.25, p3: 1.40, color: 'text-red-600', btnClass: 'bg-red-100 hover:bg-red-200 text-red-800' }
                 ]
             }
         };
 
-        // 一键应用标准毕业线
-        function applyOptimal() {
+        // 处理下拉菜单换挡事件
+        function handleSelectLineChange() {
+            const selectEl = document.getElementById('select-rating-line');
+            const index = parseInt(selectEl.value);
             const data = typeDatabase[currentType];
-            if (!data) return;
-            const targetRecord = data.records[1]; 
+            if (!data || isNaN(index)) return;
+            const targetRecord = data.records[index];
             loadReference(targetRecord.p1, targetRecord.p2, targetRecord.p3, `${data.label} · ${targetRecord.name}`);
         }
 
-        // 导入参考数据
+        // 一键应用当前类型下拉菜单所指的标准毕业线
+        function applyOptimal() {
+            handleSelectLineChange();
+        }
+
+        // 导入参考数据并触发重算
         function loadReference(p1, p2, p3, name) {
             activeP1 = p1;
             activeP2 = p2;
@@ -277,7 +325,31 @@
 
             updateParamViewer();
             updateChart();
-            showToast(`已成功恢复参数: ${name}`);
+            showToast(`已成功套用: ${name}`);
+        }
+
+        // 问号弹出详情悬浮框方法
+        function openModal() {
+            const selectEl = document.getElementById('select-rating-line');
+            const index = parseInt(selectEl.value);
+            const db = typeDatabase[currentType];
+            if (!db || isNaN(index)) return;
+            const record = db.records[index];
+
+            document.getElementById('modal-rating-title').innerText = record.name;
+            document.getElementById('modal-pokemon-type').innerText = db.label.replace('模板', '');
+            document.getElementById('modal-board-text').innerText = record.board;
+            document.getElementById('modal-eff-value').innerText = record.eff;
+
+            const modal = document.getElementById('infoModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.firstElementChild.classList.remove('scale-95');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('infoModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.firstElementChild.classList.add('scale-95');
         }
 
         // 胶囊选项卡模式设置
@@ -346,7 +418,7 @@
             }
         }
 
-        // 动态渲染官方毕业参考表（横向大归一，三列权威对照数据不再篡改错位）
+        // 动态渲染官方毕业参考表（横向色彩归一，三列对照纯粹锁定）
         function renderReferenceTable() {
             const tbody = document.getElementById('ref-table-body');
             const titleEl = document.getElementById('ref-table-title');
@@ -361,7 +433,7 @@
             db.records.forEach((r, idx) => {
                 html += `
                 <tr class="hover:bg-slate-50/50 transition duration-150 text-slate-600">
-                    <td class="py-3 font-bold ${r.color}">${r.name}</td>
+                    <td class="py-3 font-bold ${r.color}">${r.name.split(' ')[0]}</td>
                     <td class="py-3">
                         <div class="font-semibold text-slate-700 leading-tight">${r.board}</div>
                         <div class="text-[10px] text-slate-400 mt-0.5">效率指数: ${r.eff}</div>
@@ -383,6 +455,10 @@
             const config = typeDatabase[type];
             if (!config) return;
             
+            // 默认使下拉菜单切回“毕业 (标准线)”(Index 1)
+            const selectEl = document.getElementById('select-rating-line');
+            if (selectEl) selectEl.value = "1";
+
             const defaultRecord = config.records[1]; 
             activeP1 = defaultRecord.p1;
             activeP2 = defaultRecord.p2;
